@@ -1,6 +1,6 @@
 ---
-title: "Untitled"
-author: "Austin Pray"
+title: "Ruby on Rails Dataset"
+author: "Austin Pray and Joe Bao"
 date: "February 19, 2017"
 output: html_document
 ---
@@ -9,22 +9,40 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Ruby on Rails Commit History Dataset
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This dataset is a full set of the git commits that make up the Ruby on Rails web framework. Ruby on Rails is an interesting open source project to examine for a couple reasons:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+1. It is one of the oldest and most popular repositories on GitHub
+2. It is widely contributed to by the open source community at large. People with diverse backgrounds work on it as it is a general purpose web framework.
+3. Although it benefits from corporate sponsorship it is not a "corporate run" project. I make this distinction because in my mind a project that is worked on 9-5 by people working full time is not necessarily super interesting to look at.
 
-```{r cars}
-summary(cars)
+In short, this project has grown and been constructed organically. **We want to examine the historical data to figure out when open source contributors tend to be most active**.
+
+**We will perform a regresson to model commit activity by time and predict whether a given day will be a productive day for the project**.
+
+## Data Origin
+
+I generated it with the following commands:
+
+```
+git clone git@github.com:rails/rails.git
+git log --date=iso --pretty=format:"%h%x09%an%x09%ad%x09%s" > rails-commits.iso.tsv.txt
 ```
 
-## Including Plots
+## Columns
 
-You can also embed plots, for example:
+```{r}
+library(lubridate)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Commits = read.table(
+  "./data/rails-commits.iso.tsv.txt",
+  sep="\t",
+  header=FALSE,
+  fill=TRUE,
+  col.names=c("SHA", "Author", "Timestamp", "Message"))
+
+head(Commits)
+summary(Commits)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
