@@ -1,7 +1,7 @@
 Phase1Presentation
 ========================================================
-author: 
-date: 
+author: Austin Pray and Joe Bao
+date: 2017-02-19
 autosize: true
 
 First Slide
