@@ -1,3 +1,3 @@
 # machine-learning-project
 
-Macdonell fingerpring data was found at https://vincentarelbundock.github.io/Rdatasets/datasets.html
+Animal brain body weight data gathered from P. J. Rousseeuw and A. M. Leroy (1987) Robust Regression and Outlier Detection. Wiley, p. 57.
