@@ -34,15 +34,31 @@ git log --date=iso --pretty=format:"%h%x09%an%x09%ad%x09%s" > rails-commits.iso.
 
 ```{r}
 library(lubridate)
+library(parsedate)
 
 Commits = read.table(
   "./data/rails-commits.iso.tsv.txt",
   sep="\t",
   header=FALSE,
   fill=TRUE,
-  col.names=c("SHA", "Author", "Timestamp", "Message"))
+  col.names=c("SHA", "Author", "Timestamp", "Commit_Message"),
+  colClasses = c("Timestamp"="character"))
 
+Commits$Timestamp <- sapply(Commits$Timestamp, parse_date)
+```
+
+Let's look at the data
+
+```{r}
+names(Commits)
 head(Commits)
-summary(Commits)
+tail(Commits)
+summary(subset(Commits, select=c(Author, Timestamp)))
+```
+
+Let's see who the biggest committers are.
+
+```{r}
+nrow(Commits$Author)
 ```
 
