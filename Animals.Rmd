@@ -1,0 +1,66 @@
+---
+title: "Brain and Body weight for animals"
+author: "Austin Pray and Joe Bao"
+date: "2/19/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+- Data gathered from P. J. Rousseeuw and A. M. Leroy (1987) Robust Regression and Outlier Detection. Wiley, p. 57.
+- The dataset comes from average brain and body weights for 28 species of land animals.
+- body: body weight in kg.
+- brain: brain weight in g.
+
+```{r}
+library(readr)
+babw <- read_csv("data/Animals.csv")
+ratiobabw <- transform(babw, new = brain / (body*1000))
+rownames(ratiobabw) <- ratiobabw[,c(1)]
+smallbabw = babw[,c(2,3)]
+attach(smallbabw)
+```
+
+## Summary
+
+```{r}
+summary(smallbabw)
+```
+
+## Head
+
+```{r}
+head(smallbabw)
+```
+
+## Tail
+
+```{r}
+tail(smallbabw)
+```
+
+## Correlation
+
+```{r}
+cor(smallbabw)
+```
+
+## Brain and Body weight scatterplot
+
+```{r}
+plot(body~brain, main = "Brain and body weight", xlab = "body weight in KG", ylab = "brain weight in g", data = smallbabw)
+```
+
+## Brain and Body ratio dot plot
+
+```{r}
+dotchart(ratiobabw$new,labels=row.names(ratiobabw),cex=.7,
+  	main="Ratio of brain to body weight", 
+   xlab="Brain to body weight ratio")
+```
+
+## What we seek to learn
+
+- We should be able to combine this data with other data on animal reproduction and determine if brain/body weight ratio has anything to do with animal reproduction and the average number of offpsring an animal will have in a lifetime.

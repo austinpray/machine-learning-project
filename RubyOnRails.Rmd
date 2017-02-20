@@ -35,7 +35,6 @@ git log --date=iso --pretty=format:"%h%x09%an%x09%ad%x09%s" > rails-commits.iso.
 ## Columns
 
 ```{r}
-library(lubridate)
 library(parsedate)
 
 Commits = read.table(
@@ -62,7 +61,8 @@ Let's see who the biggest committers are.
 
 ```{r}
 committerTable = sort(table(Commits$Author),decreasing=T)
-plot(head(sort(committerTable, decreasing=T), 10))
+plot(head(committerTable, 10))
+dotchart(head(committerTable, 20))
 ```
 
 Let's see the history of people committing:
