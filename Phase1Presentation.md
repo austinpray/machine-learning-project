@@ -13,6 +13,88 @@ For more details on authoring R presentations please visit <https://support.rstu
 - Bullet 2
 - Bullet 3
 
+Brain and Body weight for animals
+========================================================
+
+- Data gathered from P. J. Rousseeuw and A. M. Leroy (1987) Robust Regression and Outlier Detection. Wiley, p. 57.
+
+- The dataset comes from average brain and body weights for 28 species of land animals.
+
+- body: body weight in kg.
+
+- brain: brain weight in g.
+
+
+```
+      X1                 body              brain        
+ Length:28          Min.   :    0.02   Min.   :   0.40  
+ Class :character   1st Qu.:    3.10   1st Qu.:  22.23  
+ Mode  :character   Median :   53.83   Median : 137.00  
+                    Mean   : 4278.44   Mean   : 574.52  
+                    3rd Qu.:  479.00   3rd Qu.: 420.00  
+                    Max.   :87000.00   Max.   :5712.00  
+      new           
+ Min.   :1.776e-06  
+ 1st Qu.:1.278e-03  
+ Median :3.221e-03  
+ Mean   :6.199e-03  
+ 3rd Qu.:7.902e-03  
+ Max.   :2.632e-02  
+```
+
+```
+      body              brain        
+ Min.   :    0.02   Min.   :   0.40  
+ 1st Qu.:    3.10   1st Qu.:  22.23  
+ Median :   53.83   Median : 137.00  
+ Mean   : 4278.44   Mean   : 574.52  
+ 3rd Qu.:  479.00   3rd Qu.: 420.00  
+ Max.   :87000.00   Max.   :5712.00  
+```
+
+```
+# A tibble: 6 × 2
+      body brain
+     <dbl> <dbl>
+1     1.35   8.1
+2   465.00 423.0
+3    36.33 119.5
+4    27.66 115.0
+5     1.04   5.5
+6 11700.00  50.0
+```
+
+```
+# A tibble: 6 × 2
+       body brain
+      <dbl> <dbl>
+1   100.000 157.0
+2    52.160 440.0
+3     0.280   1.9
+4 87000.000 154.5
+5     0.122   3.0
+6   192.000 180.0
+```
+
+```
+              body        brain
+body   1.000000000 -0.005341163
+brain -0.005341163  1.000000000
+```
+
+Brain and Body weight scatterplot
+========================================================
+
+![plot of chunk unnamed-chunk-2](Phase1Presentation-figure/unnamed-chunk-2-1.png)
+
+Brain and Body ratio dot plot
+========================================================
+![plot of chunk unnamed-chunk-3](Phase1Presentation-figure/unnamed-chunk-3-1.png)
+
+What we seek to learn
+========================================================
+- We should be able to combine this data with other data on animal reproduction and determine if brain/body weight ratio has anything to do with animal reproduction and the average number of offpsring an animal will have in a lifetime.
+
 Slide With Code
 ========================================================
 
@@ -34,4 +116,4 @@ summary(cars)
 Slide With Plot
 ========================================================
 
-![plot of chunk unnamed-chunk-2](Phase1Presentation-figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-5](Phase1Presentation-figure/unnamed-chunk-5-1.png)
