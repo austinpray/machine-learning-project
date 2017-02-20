@@ -29,12 +29,33 @@ library(readr)
 babw <- read_csv("~/Documents/machine-learning-project/data/Animals.csv")
 ratiobabw <- transform(babw, new = brain / (body*1000))
 rownames(ratiobabw) <- ratiobabw[,c(1)]
-summary(ratiobabw)
 smallbabw = babw[,c(2,3)]
 attach(smallbabw)
+```
+
+Summary
+========================================================
+
+```{r, echo=FALSE}
 summary(smallbabw)
+```
+
+Head
+========================================================
+
+```{r, echo=FALSE}
 head(smallbabw)
+```
+
+Tail
+========================================================
+```{r, echo=FALSE}
 tail(smallbabw)
+```
+
+Correlation
+========================================================
+```{r, echo=FALSE}
 cor(smallbabw)
 ```
 

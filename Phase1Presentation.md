@@ -25,22 +25,10 @@ Brain and Body weight for animals
 - brain: brain weight in g.
 
 
-```
-      X1                 body              brain        
- Length:28          Min.   :    0.02   Min.   :   0.40  
- Class :character   1st Qu.:    3.10   1st Qu.:  22.23  
- Mode  :character   Median :   53.83   Median : 137.00  
-                    Mean   : 4278.44   Mean   : 574.52  
-                    3rd Qu.:  479.00   3rd Qu.: 420.00  
-                    Max.   :87000.00   Max.   :5712.00  
-      new           
- Min.   :1.776e-06  
- 1st Qu.:1.278e-03  
- Median :3.221e-03  
- Mean   :6.199e-03  
- 3rd Qu.:7.902e-03  
- Max.   :2.632e-02  
-```
+
+Summary
+========================================================
+
 
 ```
       body              brain        
@@ -51,6 +39,10 @@ Brain and Body weight for animals
  3rd Qu.:  479.00   3rd Qu.: 420.00  
  Max.   :87000.00   Max.   :5712.00  
 ```
+
+Head
+========================================================
+
 
 ```
 # A tibble: 6 × 2
@@ -64,6 +56,9 @@ Brain and Body weight for animals
 6 11700.00  50.0
 ```
 
+Tail
+========================================================
+
 ```
 # A tibble: 6 × 2
        body brain
@@ -76,6 +71,9 @@ Brain and Body weight for animals
 6   192.000 180.0
 ```
 
+Correlation
+========================================================
+
 ```
               body        brain
 body   1.000000000 -0.005341163
@@ -85,11 +83,11 @@ brain -0.005341163  1.000000000
 Brain and Body weight scatterplot
 ========================================================
 
-![plot of chunk unnamed-chunk-2](Phase1Presentation-figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-6](Phase1Presentation-figure/unnamed-chunk-6-1.png)
 
 Brain and Body ratio dot plot
 ========================================================
-![plot of chunk unnamed-chunk-3](Phase1Presentation-figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-7](Phase1Presentation-figure/unnamed-chunk-7-1.png)
 
 What we seek to learn
 ========================================================
@@ -116,4 +114,4 @@ summary(cars)
 Slide With Plot
 ========================================================
 
-![plot of chunk unnamed-chunk-5](Phase1Presentation-figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-9](Phase1Presentation-figure/unnamed-chunk-9-1.png)
