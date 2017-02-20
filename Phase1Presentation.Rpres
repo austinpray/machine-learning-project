@@ -1,17 +1,98 @@
-Phase1Presentation
+Term Project Datasets
 ========================================================
 author: Austin Pray and Joe Bao
 date: 2017-02-19
 autosize: true
 
-First Slide
+Our Datasets
 ========================================================
 
-For more details on authoring R presentations please visit <https://support.rstudio.com/hc/en-us/articles/200486468>.
+- Ruby on Rails Commit History
+- UTD 2017 Coursebook
+- Brain and Body Weight for Animals
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+Ruby on Rails Commit History
+========================================================
+
+This dataset is a full set of the git commits that make up the Ruby on Rails web framework.
+
+```
+git clone git@github.com:rails/rails.git
+git log --date=iso --pretty=format:"%h%x09%an%x09%ad%x09%s" > rails-commits.iso.tsv.txt
+```
+
+Ruby on Rails Commit History Columns
+========================================================
+
+- SHA: git commit sha
+- author: git commit author
+- timestamp: UTC timestamp of the commit
+- commit message: text that came with the commit
+
+Ruby on Rails Commit History Preview
+========================================================
+
+```{r}
+library(parsedate)
+
+Commits = read.table(
+  "./data/rails-commits.iso.tsv.txt",
+  sep="\t",
+  header=FALSE,
+  fill=TRUE,
+  col.names=c("SHA", "Author", "Timestamp", "Commit_Message"),
+  colClasses = c("Timestamp"="character"))
+
+Commits$Timestamp <- sapply(Commits$Timestamp, parse_date)
+```
+
+Ruby on Rails Commit History Preview Cont.
+========================================================
+
+```{r}
+head(Commits)
+```
+
+Ruby on Rails Commit History Preview Cont.
+========================================================
+
+```{r}
+library(ggplot2)
+base <- qplot(as.POSIXct(Commits$Timestamp, origin = "1970-01-01", tz = "GMT"))
+base + scale_x_datetime(date_labels = "%Y %m %d")
+```
+
+UTD Coursebook
+========================================================
+
+UT Dallas coursebook as downloadable from coursebook.utdallas.edu
+
+Important columns:
+
+- Instructor: instructor name
+- Enrollment: amount of students enrolled for the class
+- Class Name: class's full name
+- Department: department that offers the class
+
+UTD Coursebook
+========================================================
+
+```{r}
+library(readr)
+
+coursebook = read.csv("data/utd-coursebook.csv")
+
+summary(coursebook)
+```
+
+UTD Coursebook
+========================================================
+
+```{r}
+topProfs = sort(table(coursebook$instructors), decreasing = T)
+dotchart(head(topProfs, 20))
+```
+
 
 Brain and Body weight for animals
 ========================================================
@@ -26,68 +107,18 @@ Brain and Body weight for animals
 
 ```{r, echo=FALSE}
 library(readr)
-babw <- read_csv("~/Documents/machine-learning-project/data/Animals.csv")
+babw <- read_csv("data/Animals.csv")
 ratiobabw <- transform(babw, new = brain / (body*1000))
 rownames(ratiobabw) <- ratiobabw[,c(1)]
 smallbabw = babw[,c(2,3)]
 attach(smallbabw)
 ```
 
-Summary
-========================================================
-
-```{r, echo=FALSE}
-summary(smallbabw)
-```
-
-Head
-========================================================
-
-```{r, echo=FALSE}
-head(smallbabw)
-```
-
-Tail
-========================================================
-```{r, echo=FALSE}
-tail(smallbabw)
-```
-
-Correlation
-========================================================
-```{r, echo=FALSE}
-cor(smallbabw)
-```
-
-Brain and Body weight scatterplot
-========================================================
-
-```{r, echo=FALSE}
-plot(body~brain, main = "Brain and body weight", xlab = "body weight in KG", ylab = "brain weight in g", data = smallbabw)
-```
-
-Brain and Body ratio dot plot
-========================================================
-```{r, echo=FALSE}
-dotchart(ratiobabw$new,labels=row.names(ratiobabw),cex=.7,
-  	main="Ratio of brain to body weight", 
-   xlab="Brain to body weight ratio")
-```
-
-What we seek to learn
-========================================================
-- We should be able to combine this data with other data on animal reproduction and determine if brain/body weight ratio has anything to do with animal reproduction and the average number of offpsring an animal will have in a lifetime.
-
-Slide With Code
+Brain and Body weight for animals
 ========================================================
 
 ```{r}
-summary(cars)
-```
-
-Slide With Plot
-========================================================
-
-```{r, echo=FALSE}
-plot(cars)
+dotchart(ratiobabw$new,labels=row.names(ratiobabw),cex=.7,
+  	main="Ratio of brain to body weight", 
+   xlab="Brain to body weight ratio")
 ```

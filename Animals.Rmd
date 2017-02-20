@@ -2,7 +2,9 @@
 title: "Brain and Body weight for animals"
 author: "Austin Pray and Joe Bao"
 date: "2/19/2017"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

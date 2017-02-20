@@ -1,30 +1,52 @@
 ---
-title: "Untitled"
-author: "Austin Pray"
+title: "Coursebook"
+author: "Austin Pray and Joe Bao"
 date: "February 19, 2017"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## UT Dallas Coursebook
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This was obtained from the https://coursebook.utdallas.edu/ 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+We hope to classify professors by the prefixes of the courses they teach. We want to see if a professor that teaches in CS often cross-teaches in the Math department.
 
-```{r cars}
-summary(cars)
+```{r}
+library(readr)
+
+coursebook = read.csv("data/utd-coursebook.csv")
+
+summary(coursebook)
 ```
 
-## Including Plots
+## Peek at the data
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+head(coursebook)
+tail(coursebook)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Let's see the professors with highest number of classes
+
+```{r}
+topProfs = sort(table(coursebook$instructors), decreasing = T)
+dotchart(head(topProfs, 20))
+```
+
+## Let's see the enrollment for departments
+
+```{r}
+aggregate(coursebook$enrollment, by=list(coursebook$dept), FUN=sum)
+```
+
+## Chord
+
+```{r}
+plot(coursebook$class.title, coursebook$enrollment)
+```
