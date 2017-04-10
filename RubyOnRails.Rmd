@@ -89,7 +89,6 @@ Commits$year = strtoi(format(as.POSIXct(Commits$Timestamp, origin = "1970-01-01"
 GroupedCommits = data.frame(table(Commits$weekDay, Commits$year))
 colnames(GroupedCommits)[1] = "weekday"
 colnames(GroupedCommits)[2] = "year"
-GroupedCommits$year = as.numeric(as.character(GroupedCommits$year))
 GroupedCommits
 ```
 
