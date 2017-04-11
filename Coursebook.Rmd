@@ -25,28 +25,63 @@ coursebook = read.csv("data/utd-coursebook.csv")
 summary(coursebook)
 ```
 
-## Peek at the data
+### Peek at the data
 
 ```{r}
 head(coursebook)
 tail(coursebook)
 ```
 
-## Let's see the professors with highest number of classes
+### Let's see the professors with highest number of classes
 
 ```{r}
 topProfs = sort(table(coursebook$instructors), decreasing = T)
 dotchart(head(topProfs, 20))
 ```
 
-## Let's see the enrollment for departments
+### Let's see the enrollment for departments
 
 ```{r}
 aggregate(coursebook$enrollment, by=list(coursebook$dept), FUN=sum)
 ```
 
-## Chord
+### Chord
 
 ```{r}
 plot(coursebook$class.title, coursebook$enrollment)
 ```
+
+## Analysis
+
+I will use the following clustering algorithms:
+
+- Hierarchical Clustering
+- KNN Clustering
+- K-Means Clusters
+
+
+### KNN Clustering
+
+```{r}
+require(caTools)
+require(kknn)
+set.seed(101) 
+sample = sample.split(coursebook, SplitRatio = .75)
+train = subset(coursebook, sample == TRUE)
+test  = subset(coursebook, sample == FALSE)
+mod15 = kknn(coursebook$instructors ~ coursebook$enrollment + coursebook$asst.count, train, test, prob=TRUE)
+prob <- attr(mod15, "prob")
+prob <- ifelse(mod15=="1", prob, 1-prob)
+px1 <- 
+px2 <- mixture.example$px2
+prob15 <- matrix(prob, length(px1), length(px2))
+par(mar=rep(2,4))
+contour(px1, px2, prob15, levels=0.5, labels="", xlab="", ylab="", main=
+        "15-nearest neighbour", axes=FALSE)
+points(x, col=ifelse(g==1, "coral", "cornflowerblue"))
+gd <- expand.grid(x=px1, y=px2)
+points(gd, pch=".", cex=1.2, col=ifelse(prob15>0.5, "coral", "cornflowerblue"))
+box()
+```
+
+### K-means
