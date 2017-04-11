@@ -79,7 +79,7 @@ We are going to use the following algorithms to predict if a given day of the we
 
 - Linear Regressoin
 - Decision Tree
-- Neural Net
+- SVM
 
 First let's group the commits by day of the week
 
@@ -111,3 +111,19 @@ summary(CommitTM) # detailed summary of splits
 plot(CommitTM, uniform=TRUE,margin=0.2)
 text(CommitTM, use.n=TRUE, all=TRUE, cex=.8)
 ```
+
+## SVM
+
+```{r}
+require(caTools)
+library(rpart)
+library(e1071)
+set.seed(101) 
+sample = sample.split(GroupedCommits, SplitRatio = .75)
+train = subset(GroupedCommits, sample == TRUE)
+test  = subset(GroupedCommits, sample == FALSE)
+svm.model <- svm(GroupedCommits$weekday ~ GroupedCommits$Freq, data = train)
+summary(svm.model)
+```
+
+
