@@ -1,0 +1,76 @@
+---
+title: "ProjectPart2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# logistic regression
+```{r}
+library(ISLR)
+library(tree)
+library(gdata)
+Housing = read.csv("kc_house_data.csv")
+attach(Housing)
+Housing$id <- NULL
+Housing$date <- NULL
+Housing$medianPrice <- ifelse(Housing$price > median(price), 1, 0)
+Housing$medianPrice <- as.factor(Housing$medianPrice)
+Housing$price <- NULL
+attach(Housing)
+summary(Housing)
+sample <- sample.int(nrow(Housing), floor(.80*nrow(Housing)), replace = F)
+trainSet <- Housing[sample,]
+testSet <- Housing[-sample,] 
+model = glm(medianPrice ~ . -medianPrice, data = trainSet, family = "binomial")
+predicted = predict(model, testSet)
+model.pred <- rep(0, nrow(testSet))
+model.pred[predicted>0.5] = 1
+table(model.pred, testSet$medianPrice)
+mean(model.pred==testSet$medianPrice)
+```
+
+# non scaled knn
+```{r echo=FALSE}
+library(class)
+
+kmodel = knn(trainSet[,1:18], testSet[,1:18], cl=trainSet$medianPrice, k = 15)
+tbl = table(kmodel, testSet$medianPrice)
+tbl
+correct = sum(diag(tbl))
+total = length(testSet$medianPrice)
+cat(correct / total * 100, "% accuracy")
+```
+
+# scaled knn
+```{r echo=FALSE}
+library(class)
+
+kmodel = knn(scale(trainSet[,1:18]), scale(testSet[,1:18]), cl=trainSet$medianPrice, k = 15)
+tbl = table(kmodel, testSet$medianPrice)
+tbl
+correct = sum(diag(tbl))
+total = length(testSet$medianPrice)
+cat(correct / total * 100, "% accuracy")
+```
+
+```{r echo=FALSE}
+treeModel = tree(medianPrice~., trainSet)
+summary(treeModel)
+treePredict = predict(treeModel, testSet, type="class")
+table(treePredict, testSet[,"medianPrice"])
+mean(treePredict==testSet[,"medianPrice"])
+```
+
+```{r}
+plot(treeModel, uniform=TRUE,margin=0.2)
+text(treeModel, use.n=TRUE, all=TRUE, cex=.8)
+```
+
+
+
+
+
+
