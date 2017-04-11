@@ -7,7 +7,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# logistic regression
+# Kansas housing data
+
+## logistic regression
+
 ```{r}
 library(ISLR)
 library(tree)
@@ -32,7 +35,8 @@ table(model.pred, testSet$medianPrice)
 mean(model.pred==testSet$medianPrice)
 ```
 
-# non scaled knn
+## non scaled knn
+
 ```{r echo=FALSE}
 library(class)
 
@@ -44,7 +48,8 @@ total = length(testSet$medianPrice)
 cat(correct / total * 100, "% accuracy")
 ```
 
-# scaled knn
+## scaled knn
+
 ```{r echo=FALSE}
 library(class)
 
@@ -55,6 +60,8 @@ correct = sum(diag(tbl))
 total = length(testSet$medianPrice)
 cat(correct / total * 100, "% accuracy")
 ```
+
+## Tree
 
 ```{r echo=FALSE}
 treeModel = tree(medianPrice~., trainSet)
@@ -68,9 +75,3 @@ mean(treePredict==testSet[,"medianPrice"])
 plot(treeModel, uniform=TRUE,margin=0.2)
 text(treeModel, use.n=TRUE, all=TRUE, cex=.8)
 ```
-
-
-
-
-
-
