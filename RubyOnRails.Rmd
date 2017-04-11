@@ -99,3 +99,15 @@ CommitLM = lm(GroupedCommits$Freq ~ GroupedCommits$weekday + GroupedCommits$year
 plot(CommitLM)
 ```
 
+## Decision Tree
+
+```{r}
+library(rpart)
+CommitTM = rpart(GroupedCommits$weekday ~ GroupedCommits$Freq, 
+   method="class", data=GroupedCommits)
+printcp(CommitTM) # display the results 
+plotcp(CommitTM) # visualize cross-validation results 
+summary(CommitTM) # detailed summary of splits
+plot(CommitTM, uniform=TRUE,margin=0.2)
+text(CommitTM, use.n=TRUE, all=TRUE, cex=.8)
+```
