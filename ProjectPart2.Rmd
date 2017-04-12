@@ -77,6 +77,10 @@ plot(treeModel, uniform=TRUE,margin=0.2)
 text(treeModel, use.n=TRUE, all=TRUE, cex=.8)
 ```
 
+- Data has many columns - sqft, sqft lot, condition, and more
+- Logistic regression performed well at 82.32% accuracy. Decision tree did better at 84.99% accuracy, and as predicted, scaled knn did the best at 87.94 accuracy with a k value of 15. Knn is perfect for predicting things like housing prices, when houses close together are more similar in prices. There's a reason why people see potential in a cheap house in a rich neighborhood, intuitively, they are using knn.
+- The data had weaknesses in that it couldn't detect neighborhoods, or even if a house was across a highway. If one house was close to another house, but separated by a highway, it was treated the same as another house in the same neighborhood, but the same distance away. It could be stronger if we could aggregate houses by neighborhoods. School districts may also provide valuable data, and crime rates.
+
 # Animal Brain and Body Weight
 
 - Data gathered from P. J. Rousseeuw and A. M. Leroy (1987) Robust Regression and Outlier Detection. Wiley, p. 57.
