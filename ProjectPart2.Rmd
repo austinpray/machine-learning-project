@@ -77,4 +77,107 @@ plot(treeModel, uniform=TRUE,margin=0.2)
 text(treeModel, use.n=TRUE, all=TRUE, cex=.8)
 ```
 
-# 
+# Animal Brain and Body Weight
+
+- Data gathered from P. J. Rousseeuw and A. M. Leroy (1987) Robust Regression and Outlier Detection. Wiley, p. 57.
+- The dataset comes from average brain and body weights for 28 species of land animals.
+- body: body weight in kg.
+- brain: brain weight in g.
+
+```{r}
+library(readr)
+babw <- read_csv("data/Animals.csv")
+ratiobabw <- transform(babw, new = brain / (body*1000))
+rownames(ratiobabw) <- ratiobabw[,c(1)]
+head(babw)
+smallbabw = babw[,c(2,3)]
+attach(smallbabw)
+```
+
+## Summary
+
+```{r}
+summary(smallbabw)
+```
+
+## Head
+
+```{r}
+head(smallbabw)
+```
+
+## Tail
+
+```{r}
+tail(smallbabw)
+```
+
+## Correlation
+
+```{r}
+cor(smallbabw)
+```
+
+## Brain and Body weight scatterplot
+
+```{r}
+plot(body~brain, main = "Brain and body weight", xlab = "body weight in KG", ylab = "brain weight in g", data = smallbabw)
+```
+
+## Brain and Body ratio dot plot
+
+```{r}
+dotchart(ratiobabw$new,labels=row.names(ratiobabw),cex=.7,
+  	main="Ratio of brain to body weight", 
+   xlab="Brain to body weight ratio")
+```
+
+## Machine Learning Models
+
+### Neural Net
+
+```{r}
+library(neuralnet)
+nn = neuralnet(body~brain, data=smallbabw, hidden = 2)
+plot(nn)
+```
+
+Let's try out our neural net on some known cases. I know the average brain weight of a hedgehog is `3.35` grams. I know the average weight of a hedgehog is `1.18` kg.
+
+sources:
+
+- https://faculty.washington.edu/chudler/facts.html
+- https://en.wikipedia.org/wiki/Hedgehog
+
+```{r}
+result = neuralnet::compute(nn, data.frame(brain=c(3.35)))
+
+print(paste("predicted:", result$net.result, "vs actual:", 1.18))
+print(paste((1 - ((1.18 - result$net.result)/1.18))*100, "% accuracy"))
+```
+
+The best I've gotten was 92% accuracy
+
+### Linear Regression
+
+```{r}
+plot(body~brain)
+linearModel = lm(body~brain, data=smallbabw)
+plot(linearModel)
+predict(linearModel, data.frame(brain=c(3.35)))
+```
+
+Absolutely abysmal performance. Over 3000% error.
+
+### Decision Tree
+
+```{r}
+library(tree)
+animalTreeModel = tree(body~brain, data=smallbabw)
+plot(animalTreeModel, uniform=TRUE,margin=0.2)
+text(animalTreeModel, use.n=TRUE, all=TRUE, cex=.8)
+summary(animalTreeModel)
+treePredict = predict(animalTreeModel, data.frame(brain=c(3.35)))
+```
+
+Outliers kill this one bigtime. This model is useless for small animals.
