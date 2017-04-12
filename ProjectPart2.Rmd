@@ -1,6 +1,7 @@
 ---
 title: "ProjectPart2"
 output: html_document
+author: "Austin Pray and Joe Bao"
 ---
 
 ```{r setup, include=FALSE}
@@ -75,3 +76,5 @@ mean(treePredict==testSet[,"medianPrice"])
 plot(treeModel, uniform=TRUE,margin=0.2)
 text(treeModel, use.n=TRUE, all=TRUE, cex=.8)
 ```
+
+# 
